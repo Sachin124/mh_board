@@ -1,0 +1,103 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-icon card-header-rose">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">MH Board Students</h4>
+         <button type="button" class="btn btn-primary btn-md pull-right" (click)="openModal(template)">Add New</button>
+
+                </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                              <tr>
+                                <th>Id</th>
+                                <th>Student Name</th>
+                                <th>View Marks</th>
+                                <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                               <tr *ngFor="let row of rows; let i = index">
+                                 <td>{{i+1}}</td>
+                                 <td>{{row.student_name}}</td>
+                                 <td>
+                                    <i class="material-icons text-success" style="cursor: pointer;" (click)="viewStudent(template1,row.student_id)">eco</i>
+                                 </td>
+                                 <td class="td-actions">                     
+                                    <i class="fa fa-trash-o" style="font-size:20px;color:red; cursor: pointer;"
+                                    matTooltip="Delete Student!" [matTooltipPosition]="'above'" aria-hidden="true"
+                                    (click)="deleteStudent(row.student_id)"></i>&nbsp;                 
+                                </td> 
+
+                               </tr>
+                          </tbody>
+                      </table>
+
+                      </div>
+                  </div>
+              </div>
+           
+            
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Add New Student</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <add-student (saveStudent)="saveStudent($event)"></add-student>
+  </div>
+</ng-template>
+
+
+<ng-template #template1>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">{{studentData?.student_name}}</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Subject Name</th>
+                      <th>Total Marks</th>
+                      <th>Obtained Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let sub of studentData?.data; let j = index">
+                    <td>{{j + 1}}</td>
+                    <td>{{sub.subject_name}}</td>
+                    <td>{{sub.marks}}</td>
+                    <td>{{sub.marks_obtained}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">                      
+                    </td>
+                    <td class="td-total"> Total Marks</td>
+                    <td class="td-price">{{studentData?.totalCount}} </td></tr>
+                  </tbody>
+                </table>
+
+                </div>
+            </div>
+    </div>
+  </ng-template>

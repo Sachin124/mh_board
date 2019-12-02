@@ -1,0 +1,62 @@
+<form [formGroup]="studentForm" #formDir="ngForm"  (ngSubmit)="save(studentForm)">
+
+  <div class="card-body">
+    <mat-form-field class="example-full-width" >
+      <input type="text" [pattern]="namePattern" required matInput placeholder="Enter Student Name" formControlName="student_name">
+      <!-- <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+       Please enter a valid email address
+     </mat-error> -->
+      <!-- <mat-error *ngIf="emailFormControl.hasError('required')">
+       Email is <strong>required</strong>
+     </mat-error> -->
+     <!-- <mat-error
+     *ngIf="studentForm.controls.student_name.invalid && (studentForm.controls.student_name.dirty || studentForm.controls.student_name.touched)">
+     Student Name is Required!
+   </mat-error> -->
+   <mat-error *ngIf="studentForm.controls.student_name.errors?.pattern">
+      Enter Valid Name
+    </mat-error>
+   <mat-error
+                    *ngIf="formDir.submitted && studentForm.controls.student_name.invalid">
+                    <mat-error *ngIf="studentForm.controls.student_name.errors.required">
+                       Student Name is Required! </mat-error>
+                  </mat-error>
+    </mat-form-field>
+
+    <div formArrayName="subjects">
+      <div *ngFor="let sub of studentForm.get('subjects')['controls']; let i=index" class="panel panel-default">
+        <div class="panel-body" [formGroupName]="i">
+          <div class="row">
+            <div class="col-6">
+                <!-- <mat-form-field class="example-full-width has-label">
+                    <input type="text"  matInput placeholder="{{subjectsData[i].subject_name}}" disabled formControlName="subject_id">
+                  </mat-form-field> -->
+                  <div class="form-group margin_padd_no">
+                      <!-- <label class="bmd-label-floating">Subject Name</label> -->
+                      <h4 class="profile_peg_title">{{subjectsData[i].subject_name}}</h4>
+                      <!-- <input type="text"  placeholder="{{subjectsData[i].subject_name}}" disabled [value]="subjectsData[i].subject_name" formControlName="subject_id"> -->
+                    </div>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="example-full-width has-label">
+                    <input type="text" [pattern]="numbersOnly"  required matInput placeholder="Obtained Marks in {{subjectsData[i].subject_name}}" formControlName="marks_obtained">
+                    
+                  <mat-error *ngIf="studentForm.controls.subjects.controls[i].controls.marks_obtained.errors?.pattern">
+                      Enter only numeric value
+                    </mat-error>
+
+                  <mat-error
+                    *ngIf="formDir.submitted && studentForm.controls.subjects.controls[i].controls.marks_obtained.invalid">
+                    <mat-error *ngIf="studentForm.controls.subjects.controls[i].controls.marks_obtained.errors.required">
+                        {{subjectsData[i].subject_name}} Marks is Required! </mat-error>
+                  </mat-error>
+           
+                  </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button mat-raised-button type="submit" class="btn btn-rose">Submit</button>
+  </div>
+</form>

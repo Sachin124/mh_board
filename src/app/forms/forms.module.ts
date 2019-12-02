@@ -7,8 +7,6 @@ import { TagInputModule } from 'ngx-chips';
 import { SelectModule } from 'ng2-select';
 import { MaterialModule } from '../app.module';
 import { FormsRoutes } from './forms.routing';
-
-import { ExtendedFormsComponent } from './extendedforms/extendedforms.component';
 import { RegularFormsComponent } from './regularforms/regularforms.component';
 import { ValidationFormsComponent } from './validationforms/validationforms.component';
 import { WizardComponent } from './wizard/wizard.component';
@@ -26,7 +24,6 @@ import { FieldErrorDisplayComponent } from './validationforms/field-error-displa
     MaterialModule
   ],
   declarations: [
-      ExtendedFormsComponent,
       RegularFormsComponent,
       ValidationFormsComponent,
       WizardComponent,

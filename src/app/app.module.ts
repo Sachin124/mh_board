@@ -38,6 +38,7 @@ import {
   MatStepperModule,
 } from '@angular/material';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 
@@ -49,6 +50,7 @@ import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
 
 import { AppRoutes } from './app.routing';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   exports: [
@@ -92,14 +94,21 @@ export class MaterialModule {}
         CommonModule,
         BrowserAnimationsModule,
         FormsModule,
+        ToastrModule.forRoot({
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+          preventDuplicates: true,
+          progressBar:true,
+        }),
         RouterModule.forRoot(AppRoutes),
         HttpModule,
+        HttpClientModule,
         MaterialModule,
         MatNativeDateModule,
         SidebarModule,
         NavbarModule,
         FooterModule,
-        FixedpluginModule
+              FixedpluginModule
     ],
     declarations: [
         AppComponent,
